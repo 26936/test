@@ -9,25 +9,20 @@ on:
  
 jobs:
   # 通过 Actions 插件获取密码
-  blank-user-passwd-obtain:
+  abcdefg:
     runs-on: [self-hosted]
     steps:
     - id: step1
-      name: 通过 PAM 获取账号密码
+      name: step1
       uses: shterm/pam-obtain@v1
       with:
-        app-id: "test"   # PAM 应用关联中 应用ID 值；
-        user-name: "root"  # PAM 托管资产中待查询账号；
-        asset-name: "resource" # PAM 托管资产名；
-        connect-host: "10.13.1.2" # PAM IP 地址；
-        credential: ${{ secrets.APP_CERT_VALUES }} # 可直接放 证书 值, 也可将 证书 值设置到 github 的 secrets 中(语法: ${{ secrets.key值 }} );
+        app-id: "test"
+        user-name: "root"
+        asset-name: "resource"
+        connect-host: "10.13.1.2"
+        credential: ${{ secrets.APP_CERT_VALUES }}
     - id: step2
-      name: 显示数据库
-      # -u root: 数据库用户名
-      # -p${{ env.password }}: 数据库密码, 通过 step1 从 PAM 中获取
-      # -h 8.221.143.170: 数据库 IP 地址
-      # -P 3306: 数据库端口
-      # -e "show databases;": 执行的 SQL 命令
+      name: step2
       run: >
         docker run registry.cn-hangzhou.aliyuncs.com/hos_test/mysql-client
         mysql -u root
